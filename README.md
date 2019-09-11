@@ -1,5 +1,5 @@
 # Python 2 Work
-## Python coding projects for Python 2 course at CCAC by *Alex Hartle*
+## Coding projects for CCAC's Python 2 by *Alex Hartle*
 
 ### Who I Am
 My name is Alex Hartle and I am a student in CCAC's A.S. Cybersecurity program. I have a bachelor's degree in History and a master's degree in Teaching from the University of Pittsburgh, and am working through the program as part of a career change. I am without any prior IT experience but have fallen in love with the field and specifically the logic of programming and hope to enter a cybersecurity position upon graduation.
