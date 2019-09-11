@@ -1,4 +1,4 @@
-# Python-2-Work
+# Python 2 Work
 ## Python coding projects for Python 2 course at CCAC by *Alex Hartle*
 
 ### Who I Am
