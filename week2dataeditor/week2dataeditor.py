@@ -23,7 +23,7 @@ continents = {'North America':[{'Canada':{'Population':'35,881,659',
 	'GDP':'381,600,000,000 Dollars','Founding Year':'1811'}}]}
 	
 def mainmenu():
-	print("Hello, welcome to the World Factbook! Choose a continent" + 
+	print("\nHello, welcome to the World Factbook! Choose a continent" + 
 		" from the options below to see a list of countries within" + 
 		"that continent. To add a continent, type 'Add'. To" +
 		" delete a continent, type 'Delete'.\n")
@@ -47,8 +47,48 @@ def mainmenu():
 			print("Invalid input, try again.")
 			
 def continentmenu(selection):
-	print(selection.title())
+	print("\nWelcome to the continent menu. Here are the countries " +
+	"currently listed for the continent you chose. To view details " +
+	"about a country, enter its name. To add a country to this " +
+	"continent list, enter 'Add'. To delete a country and its " +
+	"associated information, enter 'Delete'. To go back to" +
+	" the main menu, enter 'Main'. \n")
 	
+	for country_dict in continents[selection.title()]:
+		for country in country_dict.keys():
+			print(country, end='    ')
+	print("\n")
+	
+	wrong = True
+	while wrong:
+		usr_country = input("Your choice: ")
+		for country_dict in continents[selection.title()]:
+			for country in country_dict.keys():
+				if country == usr_country.title():
+					wrong = False
+					countrymenu(usr_country)
+				elif usr_country.title() == 'Add':
+					break
+				elif usr_country.title() == 'Delete':
+					break
+				elif usr_country.title() == 'Main':
+					break
+				else:
+					continue
+		if usr_country.title() == 'Add':
+			wrong = False
+			add()
+		elif usr_country.title() == 'Delete':
+			wrong = False
+			delete()
+		elif usr_country.title() == 'Main':
+			wrong = False
+			mainmenu()
+		else:
+			print("Invalid input, try again.")
+def countrymenu(selection):
+	print(selection.title())
+
 def add():
 	print('add')
 	
