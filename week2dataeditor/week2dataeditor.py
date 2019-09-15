@@ -22,6 +22,60 @@ continents = {'North America':[{'Canada':{'Population':'35,881,659',
 	{'Venezuela':{'Population':'31,689,176',
 	'GDP':'381,600,000,000 Dollars','Founding Year':'1811'}}]}
 	
+valid_africa = ['Algeria', 'Angola', 'Benin', 'Botswana', 'Burkina',
+		'Burundi', 'Cameroon', 'Cape Verde', 'Central African Republic',
+		'Chad', 'Comoros', 'Congo', 'Congo, Democratic Republic of',
+		'Djibouti', 'Egypt', 'Equatorial Guinea', 'Eritrea', 'Ethiopia',
+		'Gabon', 'Gambia', 'Ghana', 'Guinea', 'Guinea-Bissau', 
+		'Ivory Coast', 'Kenya', 'Lesotho', 'Liberia', 'Libya', 
+		'Madagascar', 'Malawi', 'Mali', 'Mauritania', 'Mauritius',
+		'Morocco', 'Mozambique', 'Namibia', 'Niger', 'Nigeria', 'Rwanda',
+		'Sao Tome and Principe', 'Senegal', 'Seychelles', 'Sierra Leone',
+		'Somalia', 'South Africa', 'South Sudan', 'Sudan', 'Swaziland',
+		'Tanzania', 'Togo', 'Tunisia', 'Uganda', 'Zambia', 'Zimbabwe']
+	
+valid_asia = ['Afghanistan', 'Bahrain', 'Bangladesh', 'Bhutan', 
+		'Brunei', 'Burma', 'Cambodia', 'China', 'East Timor', 'India',
+		'Indonesia', 'Iran', 'Iraq', 'Israel', 'Japan', 'Jordan',
+		'Kazakhstan', 'Kuwait', 'Kyrgyzstan', 'Laos', 'Lebanon',
+		'Malaysia', 'Maldives', 'Mongolia', 'Nepal', 'North Korea',
+		'Oman', 'Pakistan','Philippines', 'Qatar', 'Russia', 
+		'Saudi Arabia', 'Singapore', 'South Korea',
+		'Sri Lanka', 'Syria', 'Tajikistan', 'Thailand', 'Turkey', 
+		'Turkmenistan', 'United Arab Emirates', 'Uzbekistan', 'Vietnam',
+		'Yemen']
+     
+valid_europe = ['Albania', 'Andorra', 'Armenia', 'Austria', 
+		'Azerbaijan', 'Belarus', 'Belgium', 'Bosnia and Herzegovina',
+		'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark',
+		'Estonia', 'Finland', 'France', 'Georgia', 'Germany', 'Greece',
+		'Hungary', 'Iceland', 'Ireland', 'Italy', 'Latvia', 
+		'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 
+		'Malta', 'Moldova', 'Monaco', 'Montenegro', 'Netherlands',
+		'Norway', 'Poland', 'Portugal', 'Romania', 'San Marino', 'Serbia',
+		'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland',
+		'Ukraine', 'United Kingdom', 'Vatican City']
+  
+valid_north_america = ['Antigua and Barbuda', 'Bahamas', 'Barbados',
+	'Belize', 'Canada', 'Costa Rica', 'Cuba', 'Dominica', 'Dominican Republic',
+	'El Salvador', 'Grenada', 'Guatemala', 'Haiti', 'Honduras', 
+	'Jamaica', 'Mexico', 'Nicaragua', 'Panama', 'Saint Kitts and Nevis',
+	'Saint Lucia', 'Saint Vincent and the Grenadines', 'Trinidad and Tobago',
+	'United States of America']
+	
+valid_australia = ['Australia', 'Fiji', 'Kiribati', 'Marshall Islands',
+		'Micronesia', 'Nauru', 'New Zealand', 'Palau', 'Papau New Guinea',
+		'Samoa', 'Solomon Islands', 'Tonga', 'Tuvalu', 'Vanuatu']
+		
+valid_south_america = ['Argentina', 'Bolivia', 'Brazil', 'Chile',
+		'Colombia', 'Ecuador', 'Guyana', 'Paraguay', 'Peru', 'Suriname',
+		'Uruguay', 'Venezuela']
+		
+valid_antarctica = ['Antarctica']
+
+valid_continents = ['North America', 'South America', 'Europe',
+		'Africa', 'Asia', 'Australia', 'Antarctica']
+	
 def mainmenu():
 	print("\nHello, welcome to the World Factbook! Choose a continent" + 
 		" from the options below to see a list of countries within" + 
@@ -38,10 +92,10 @@ def mainmenu():
 			continentmenu(usr_cont)
 			wrong = False
 		elif usr_cont.title() == 'Add':
-			add()
+			contadd()
 			wrong = False
 		elif usr_cont.title() == 'Delete':
-			delete()
+			contdelete()
 			wrong = False
 		else:
 			print("Invalid input, try again.")
@@ -66,7 +120,7 @@ def continentmenu(selection):
 			for country in country_dict.keys():
 				if country == usr_country.title():
 					wrong = False
-					countrymenu(usr_country)
+					countrymenu(selection, usr_country)
 				elif usr_country.title() == 'Add':
 					break
 				elif usr_country.title() == 'Delete':
@@ -77,22 +131,142 @@ def continentmenu(selection):
 					continue
 		if usr_country.title() == 'Add':
 			wrong = False
-			add()
+			countryadd(selection)
 		elif usr_country.title() == 'Delete':
 			wrong = False
-			delete()
+			countrydelete(selection)
 		elif usr_country.title() == 'Main':
 			wrong = False
 			mainmenu()
 		else:
 			print("Invalid input, try again.")
-def countrymenu(selection):
-	print(selection.title())
+def countrymenu(selection, usr_country):
+	print("\nThe following is all the information we have for %s:" % usr_country.title())
+	for country_dict in continents[selection.title()]:
+		for country in country_dict.keys():
+			a = country
+			if a == usr_country.title():
+				b = continents[selection.title()].index(country_dict)
+				break
+			else: 
+				continue
+	
+	for key, value in continents[selection.title()][b][usr_country.title()].items():
+		print("%s: %s" % (key, value))
+	print("\n")
+	
+	wrong = True
+	while wrong == True:
+		response = input("What would you like to do now? View your options" +
+		"below:\n\n" +
+		"Add information about this country: type 'Add'\n" + 
+		"Delete informaiton about this country: type 'Delete'\n" + 
+		"Edit information about this country: type 'Edit'\n" + 
+		"Go back to the previous menu: type 'Previous'\n" + 
+		"Go back to the main menu: type 'Main'\n"
+		"Quit: type 'Quit'\n\n")
+		
+		if response.title() == 'Add':
+			wrong = False
+			infoadd()
+		elif response.title() == 'Delete':
+			wrong = False
+			delete()
+		elif response.title() == 'Edit':
+			wrong = False
+			edit()
+		elif response.title() == 'Previous':
+			wrong = False
+			continentmenu(selection)
+		elif response.title() == 'Main':
+			wrong = False
+			mainmenu()
+		else:
+			print("Invalid input, try again.")
 
-def add():
+def contadd():
+	continent = input("Enter the name of the continent you want to add" +
+	" to the Factbook: \n")
+	if continent.title() not in valid_continents:
+		print("%s is not a real continent!" % continent)
+	elif continent.title() in continents.keys():
+		print("%s is already in the Factbook!" % continent)
+	else:
+		continents[continent.title()] = []
+		print("%s added to the Factbook!" % continent)
+		mainmenu()
+	
+def countryadd(continent):
+	country = input("Enter the name of the country you want to add" +
+	" to %s: \n" % continent)
+	if continent.title() == 'Africa':
+		if country.title() not in valid_africa:
+			print("%s is not a real country in Africa!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['Africa'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif continent.title() == 'Asia':
+		if country.title() not in valid_asia:
+			print("%s is not a real country in Asia!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['Asia'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif continent.title() == 'Europe':
+		if country.title() not in valid_europe:
+			print("%s is not a real country in Europe!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['Europe'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif continent.title() == 'Australia':
+		if country.title() not in valid_australa:
+			print("%s is not a real country in Australia!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['Australia'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif continent.title() == 'North America':
+		if country.title() not in valid_north_america:
+			print("%s is not a real country in North America!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['North America'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif continent.title() == 'South America':
+		if country.title() not in valid_south_america:
+			print("%s is not a real country in South America!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['South America'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif continent.title() == 'Antarctica':
+		if country.title() not in valid_antarctica:
+			print("%s is not a real country in Antarctica!" % country)
+		else:
+			a = {country.title(): {}}
+			continents['Antarctica'].append(a)
+			print("%s added to %s!" % (country, continent))
+	elif country.title() in continents[continent][range(0, -1)][country.title()]:
+		print("%s is already in the Factbook!" % continent)
+	
+	continentmenu(continent)
+def infoadd():
 	print('add')
 	
-def delete():
-	print('delete')
+def contdelete():
+	continent = input("Enter the name of the continent you want to "
+	"delete from the Factbook. WARNING: Deleting a continent" +
+	" will delete all its associated countries and data. \n")
+	if continent.title() not in continents.keys():
+		print("%s is not in the Factbook" % continent)
+	elif continent.title() in continents.keys():
+		del continents[continent.title()]
+		print("%s removed from the Factbook!" % continent)
+		mainmenu()
+	
+def edit():
+	print('edit')
 	
 mainmenu() 
