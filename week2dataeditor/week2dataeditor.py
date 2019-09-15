@@ -22,4 +22,37 @@ continents = {'North America':[{'Canada':{'Population':'35,881,659',
 	{'Venezuela':{'Population':'31,689,176',
 	'GDP':'381,600,000,000 Dollars','Founding Year':'1811'}}]}
 	
-print(continents['Asia'][1]['Taiwan']['Population'])
+def mainmenu():
+	print("Hello, welcome to the World Factbook! Choose a continent" + 
+		" from the options below to see a list of countries within" + 
+		"that continent. To add a continent, type 'Add'. To" +
+		" delete a continent, type 'Delete'.\n")
+	for continent in continents.keys():
+		print(continent, end='    ')
+	print("\n")
+	
+	wrong = True
+	while wrong == True:
+		usr_cont = input("Your choice: ")
+		if usr_cont.title() in continents.keys():
+			continentmenu(usr_cont)
+			wrong = False
+		elif usr_cont.title() == 'Add':
+			add()
+			wrong = False
+		elif usr_cont.title() == 'Delete':
+			delete()
+			wrong = False
+		else:
+			print("Invalid input, try again.")
+			
+def continentmenu(selection):
+	print(selection.title())
+	
+def add():
+	print('add')
+	
+def delete():
+	print('delete')
+	
+mainmenu() 
