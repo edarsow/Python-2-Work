@@ -169,13 +169,13 @@ def countrymenu(selection, usr_country):
 		
 		if response.title() == 'Add':
 			wrong = False
-			infoadd()
+			infoadd(selection, usr_country, b)
 		elif response.title() == 'Delete':
 			wrong = False
-			delete()
+			infodelete(selection, usr_country, b)
 		elif response.title() == 'Edit':
 			wrong = False
-			edit()
+			infoedit(selection, usr_country, b)
 		elif response.title() == 'Previous':
 			wrong = False
 			continentmenu(selection)
@@ -294,8 +294,44 @@ def countryadd(continent):
 	
 	continentmenu(continent)
 	
-def infoadd():
-	print('add')
+def infoadd(selection, usr_country, b):
+	category = input("Enter the new data category you would like to " +
+		"add to this country: \n")
+	data = input("Enter the value for the data you would like to " +
+		"enter for this category: \n")
+	if category in continents[selection.title()][b][usr_country.title()].keys():
+		print("Category already exists, please use the edit function.")
+		countrymenu(selection, usr_country)
+	else:
+		continents[selection.title()][b][usr_country.title()][category.title()] = data.title()
+	
+	countrymenu(selection, usr_country)
+		
+def infodelete(selection, usr_country, b):
+	category = input("Enter the category for the data you would like to " +
+		"enter for this category: \n")
+	if category.title() not in continents[selection.title()][b][usr_country.title()].keys():
+		print("Category is not available for this country, please use" +
+		" add function.")
+		countrymenu(selection, usr_country)
+	else:
+		del continents[selection.title()][b][usr_country.title()][category.title()]
+	
+	countrymenu(selection, usr_country)
+	
+def infoedit(selection, usr_country, b):
+	category = input("Enter the category for the data you would like to " +
+		"edit for this category: \n")
+	if category.title() not in continents[selection.title()][b][usr_country.title()].keys():
+		print("Category is not available for this country, please use" +
+		" add function.")
+		countrymenu(selection, usr_country)
+	else:
+		data = input("Enter the new value for the data you would like to " +
+		"enter for this category: \n")
+		continents[selection.title()][b][usr_country.title()][category.title()] = data
+	
+	countrymenu(selection, usr_country)
 	
 def contdelete():
 	continent = input("Enter the name of the continent you want to "
@@ -324,8 +360,5 @@ def countrydelete(continent):
 		del continents[continent.title()][b]
 		print("%s removed from %s!" % (country.title(), continent.title()))
 		continentmenu(continent)
-	
-def edit():
-	print('edit')
 	
 mainmenu() 
