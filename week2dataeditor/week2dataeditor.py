@@ -75,6 +75,7 @@ valid_antarctica = ['Antarctica']
 
 valid_continents = ['North America', 'South America', 'Europe',
 		'Africa', 'Asia', 'Australia', 'Antarctica']
+		
 	
 def mainmenu():
 	print("\nHello, welcome to the World Factbook! Choose a continent" + 
@@ -188,70 +189,111 @@ def contadd():
 	continent = input("Enter the name of the continent you want to add" +
 	" to the Factbook: \n")
 	if continent.title() not in valid_continents:
-		print("%s is not a real continent!" % continent)
+		print("%s is not a real continent!" % continent.title())
 	elif continent.title() in continents.keys():
-		print("%s is already in the Factbook!" % continent)
+		print("%s is already in the Factbook!" % continent.title())
 	else:
 		continents[continent.title()] = []
-		print("%s added to the Factbook!" % continent)
+		print("%s added to the Factbook!" % continent.title())
 		mainmenu()
 	
 def countryadd(continent):
 	country = input("Enter the name of the country you want to add" +
-	" to %s: \n" % continent)
+	" to %s: \n" % continent.title())
 	if continent.title() == 'Africa':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
 		if country.title() not in valid_africa:
-			print("%s is not a real country in Africa!" % country)
-		else:
+			print("%s is not a real country in Africa!" % country.title())
+		elif ((country.title() in valid_africa) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['Africa'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif continent.title() == 'Asia':
-		if country.title() not in valid_asia:
-			print("%s is not a real country in Asia!" % country)
+			print("%s added to %s!" % (country.title(), continent.title()))
 		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
+	elif continent.title() == 'Asia':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
+		if country.title() not in valid_asia:
+			print("%s is not a real country in Asia!" % country.title())
+		elif ((country.title() in valid_asia) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['Asia'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif continent.title() == 'Europe':
-		if country.title() not in valid_europe:
-			print("%s is not a real country in Europe!" % country)
+			print("%s added to %s!" % (country.title(), continent.title()))
 		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
+	elif continent.title() == 'Europe':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
+		if country.title() not in valid_europe:
+			print("%s is not a real country in Europe!" % country.title())
+		elif ((country.title() in valid_europe) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['Europe'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif continent.title() == 'Australia':
-		if country.title() not in valid_australa:
-			print("%s is not a real country in Australia!" % country)
+			print("%s added to %s!" % (country.title(), continent.title()))
 		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
+	elif continent.title() == 'Australia':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
+		if country.title() not in valid_australia:
+			print("%s is not a real country in Australia!" % country.title())
+		elif ((country.title() in valid_australia) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['Australia'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif continent.title() == 'North America':
-		if country.title() not in valid_north_america:
-			print("%s is not a real country in North America!" % country)
+			print("%s added to %s!" % (country.title(), continent.title()))
 		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
+	elif continent.title() == 'North America':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
+		if country.title() not in valid_north_america:
+			print("%s is not a real country in North America!" % country.title())
+		elif ((country.title() in valid_north_america) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['North America'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif continent.title() == 'South America':
-		if country.title() not in valid_south_america:
-			print("%s is not a real country in South America!" % country)
+			print("%s added to %s!" % (country.title(), continent.title()))
 		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
+	elif continent.title() == 'South America':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
+		if country.title() not in valid_south_america:
+			print("%s is not a real country in South America!" % country.title())
+		elif ((country.title() in valid_south_america) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['South America'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif continent.title() == 'Antarctica':
-		if country.title() not in valid_antarctica:
-			print("%s is not a real country in Antarctica!" % country)
+			print("%s added to %s!" % (country.title(), continent.title()))
 		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
+	elif continent.title() == 'Antarctica':
+		c = []
+		for country_dict in continents[continent.title()]:
+			for state in country_dict.keys():
+				c.append(state)
+		if country.title() not in valid_antarctica:
+			print("%s is not a real country in Antarctica!" % country.title())
+		elif ((country.title() in valid_antarctica) and (country.title() not in c)):
 			a = {country.title(): {}}
 			continents['Antarctica'].append(a)
-			print("%s added to %s!" % (country, continent))
-	elif country.title() in continents[continent][range(0, -1)][country.title()]:
-		print("%s is already in the Factbook!" % continent)
+			print("%s added to %s!" % (country.title(), continent.title()))
+		else:
+			print("%s is already in %s!" % (country.title(), continent.title()))
 	
 	continentmenu(continent)
+	
 def infoadd():
 	print('add')
 	
@@ -265,6 +307,23 @@ def contdelete():
 		del continents[continent.title()]
 		print("%s removed from the Factbook!" % continent)
 		mainmenu()
+		
+def countrydelete(continent):
+	country = input("Enter the name of the country you want to delete." +
+	" WARNING: Deleting a country will delete all its " +
+	"associated data.\n")
+	a = []
+	for country_dict in continents[continent.title()]:
+		for state in country_dict.keys():
+			a.append(state)
+	
+	if country.title() not in a:
+		print("%s is not in the Factbook" % country.title())
+	elif country.title() in a:
+		b = a.index(country.title())
+		del continents[continent.title()][b]
+		print("%s removed from %s!" % (country.title(), continent.title()))
+		continentmenu(continent)
 	
 def edit():
 	print('edit')
