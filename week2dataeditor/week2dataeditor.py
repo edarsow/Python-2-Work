@@ -91,7 +91,7 @@ def mainmenu():
 	
 	wrong = True
 	while wrong == True:
-		usr_cont = input("Your choice: ")
+		usr_cont = input("Your choice: \n\n")
 		if usr_cont.title() in continents.keys():
 			continentmenu(usr_cont)
 			wrong = False
@@ -102,8 +102,7 @@ def mainmenu():
 			contdelete()
 			wrong = False
 		elif usr_cont.title() == 'Quit':
-			program_quit()
-			wrong = False
+			sys.exit()
 		else:
 			print("Invalid input, try again.")
 			
@@ -122,7 +121,7 @@ def continentmenu(selection):
 	
 	wrong = True
 	while wrong:
-		usr_country = input("Your choice: ")
+		usr_country = input("Your choice: \n\n")
 		for country_dict in continents[selection.title()]:
 			for country in country_dict.keys():
 				if country == usr_country.title():
@@ -192,7 +191,7 @@ def countrymenu(selection, usr_country):
 
 def contadd():
 	continent = input("Enter the name of the continent you want to add" +
-	" to the Factbook: \n")
+	" to the Factbook: \n\n")
 	if continent.title() not in valid_continents:
 		print("%s is not a real continent!" % continent.title())
 	elif continent.title() in continents.keys():
@@ -204,7 +203,7 @@ def contadd():
 	
 def countryadd(continent):
 	country = input("Enter the name of the country you want to add" +
-	" to %s: \n" % continent.title())
+	" to %s: \n\n" % continent.title())
 	if continent.title() == 'Africa':
 		c = []
 		for country_dict in continents[continent.title()]:
@@ -301,7 +300,7 @@ def countryadd(continent):
 	
 def infoadd(selection, usr_country, b):
 	category = input("Enter the new data category you would like to " +
-		"add to this country: \n")
+		"add to this country: \n\n")
 	data = input("Enter the value for the data you would like to " +
 		"enter for this category: \n")
 	if ((category.title() in continents[selection.title()][b][usr_country.title()].keys())
@@ -315,22 +314,28 @@ def infoadd(selection, usr_country, b):
 		
 def infodelete(selection, usr_country, b):
 	category = input("Enter the category of data you would like to " +
-		"delete for this category: \n")
+		"delete for this category: \n\n")
 	if ((category.title() not in continents[selection.title()][b][usr_country.title()].keys())
 		and (category.upper() not in continents[selection.title()][b][usr_country.title()].keys())):
 		print("Category is not available for this country, please use" +
 		" add function.")
 		countrymenu(selection, usr_country)
 	elif category.title() in continents[selection.title()][b][usr_country.title()].keys():
-		del continents[selection.title()][b][usr_country.title()][category.title()]
+		if len(continents[selection.title()][b][usr_country.title()].keys()) > 1:
+			del continents[selection.title()][b][usr_country.title()][category.title()]
+		else:
+			print("Cannot delete final piece of information from a country!")
 	elif category.upper() in continents[selection.title()][b][usr_country.title()].keys():
-		del continents[selection.title()][b][usr_country.title()][category.upper()]
-	
+		if len(continents[selection.title()][b][usr_country.title()].keys()) > 1:
+			del continents[selection.title()][b][usr_country.title()][category.upper()]
+		else:
+			print("Cannot delete final piece of information from a country!")
+			
 	countrymenu(selection, usr_country)
 	
 def infoedit(selection, usr_country, b):
 	category = input("Enter the category for the data you would like to " +
-		"edit for this category: \n")
+		"edit for this category: \n\n")
 	if ((category.title() not in continents[selection.title()][b][usr_country.title()].keys())
 		and (category.upper() not in continents[selection.title()][b][usr_country.title()].keys())):
 		print("Category is not available for this country, please use" +
@@ -338,11 +343,11 @@ def infoedit(selection, usr_country, b):
 		countrymenu(selection, usr_country)
 	elif category.title() in continents[selection.title()][b][usr_country.title()].keys():
 		data = input("Enter the new value for the data you would like to " +
-		"enter for this category: \n")
+		"enter for this category: \n\n")
 		continents[selection.title()][b][usr_country.title()][category.title()] = data
 	elif category.upper() in continents[selection.title()][b][usr_country.title()].keys():
 		data = input("Enter the new value for the data you would like to " +
-		"enter for this category: \n")
+		"enter for this category: \n\n")
 		continents[selection.title()][b][usr_country.title()][category.upper()] = data
 	
 	countrymenu(selection, usr_country)
@@ -350,18 +355,22 @@ def infoedit(selection, usr_country, b):
 def contdelete():
 	continent = input("Enter the name of the continent you want to "
 	"delete from the Factbook. WARNING: Deleting a continent" +
-	" will delete all its associated countries and data. \n")
+	" will delete all its associated countries and data. \n\n")
 	if continent.title() not in continents.keys():
 		print("%s is not in the Factbook" % continent)
 	elif continent.title() in continents.keys():
-		del continents[continent.title()]
-		print("%s removed from the Factbook!" % continent)
-		mainmenu()
+		if len(continents.keys()) > 1:
+			del continents[continent.title()]
+			print("%s removed from the Factbook!" % continent)
+			mainmenu()
+		else:
+			print("Cannot delete final continent!\n")
+			mainmenu()
 		
 def countrydelete(continent):
 	country = input("Enter the name of the country you want to delete." +
 	" WARNING: Deleting a country will delete all its " +
-	"associated data.\n")
+	"associated data.\n\n")
 	a = []
 	for country_dict in continents[continent.title()]:
 		for state in country_dict.keys():
@@ -370,12 +379,13 @@ def countrydelete(continent):
 	if country.title() not in a:
 		print("%s is not in the Factbook" % country.title())
 	elif country.title() in a:
-		b = a.index(country.title())
-		del continents[continent.title()][b]
-		print("%s removed from %s!" % (country.title(), continent.title()))
-		continentmenu(continent)
-		
-def program_quit():
-	sys.exit()
+		if len(a) > 1:	
+			b = a.index(country.title())
+			del continents[continent.title()][b]
+			print("%s removed from %s!" % (country.title(), continent.title()))
+			continentmenu(continent)
+		else:
+			print("Cannot delete final country from a continent!\n")
+			continentmenu(continent)
 	
 mainmenu() 
